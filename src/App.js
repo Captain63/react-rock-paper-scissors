@@ -1,23 +1,44 @@
-import logo from './logo.svg';
 import './App.css';
+import { useState } from "react";
 
-function App() {
+const App = () => {
+  const [rpsState, setRPSState] = useState({ 
+    humanChoice: "",
+    computerChoice: "",
+    countdown: 3
+  });
+
+  const choose = ({ target }) => {
+    setRPSState({
+      humanChoice: target.innerText.toLowerCase(),
+      computerChoice: "",
+      countdown: 3
+    });
+
+    alert(rpsState.humanChoice);
+  }
+
+  const humanChoices = ["Rock", "Paper", "Scissors"];
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
+      <header>
+        <h1>The Game of Champions</h1>
       </header>
+      <main>
+        <section>
+          <h2>Make Your Choice</h2>
+          <div>
+            {
+              humanChoices.map((value, i) => (<button key={i} onClick={choose} active={rpsState.humanChoice}>{value}</button>))
+            }
+
+            {/* <button onClick={choose} active={rpsState.humanChoice}>Rock</button>
+            <button onClick={choose}>Paper</button>
+            <button onClick={choose}>Scissors</button> */}
+          </div>
+        </section>
+      </main>
     </div>
   );
 }
