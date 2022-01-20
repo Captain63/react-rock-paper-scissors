@@ -3,22 +3,47 @@ import { useState } from "react";
 
 const App = () => {
   const [rpsState, setRPSState] = useState({ 
-    humanChoice: "",
-    computerChoice: "",
+    humanChoice: null,
+    computerChoice: null,
     countdown: 3
   });
 
-  const choose = ({ target }) => {
-    setRPSState({
-      humanChoice: target.innerText.toLowerCase(),
-      computerChoice: "",
-      countdown: 3
-    });
+  const humanChoices = ["Rock", "Paper", "Scissors"];
 
-    alert(rpsState.humanChoice);
+  const countdown = () => {
+    const countdownInterval = setInterval(() => 
+    {
+      if (rpsState.countdown === 0) clearInterval(countdownInterval);
+
+      const count = rpsState.countdown--;
+
+      setRPSState(prevState => {
+        return {
+          ...prevState,
+          countdown: count
+        }
+      })
+    }, 1000);
   }
 
-  const humanChoices = ["Rock", "Paper", "Scissors"];
+  const choose = ({ target }) => {
+    setRPSState(prevState => {
+      return {
+        ...prevState,
+        humanChoice: target.innerText.toLowerCase()
+      }
+    });
+
+    countdown();
+  }
+
+  const reset = () => {
+    setRPSState({
+      humanChoice: null,
+      computerChoice: null,
+      countdown: 3
+    });
+  }
 
   return (
     <div className="App">
@@ -30,14 +55,20 @@ const App = () => {
           <h2>Make Your Choice</h2>
           <div>
             {
-              humanChoices.map((value, i) => (<button key={i} onClick={choose} active={rpsState.humanChoice}>{value}</button>))
+              humanChoices.map((value, i) => (<button key={value.toLowerCase()} onClick={choose} disabled={rpsState.humanChoice}>{value}</button>))
             }
-
-            {/* <button onClick={choose} active={rpsState.humanChoice}>Rock</button>
-            <button onClick={choose}>Paper</button>
-            <button onClick={choose}>Scissors</button> */}
           </div>
         </section>
+        {rpsState.humanChoice && (
+          <section>
+            {
+              rpsState.countdown ? 
+              <h2>Computer Choice in {rpsState.countdown}...</h2> :
+              <h2>Computer Chooses:</h2>
+            }
+            <button onClick={reset}>Reset</button>
+          </section>
+        )}
       </main>
     </div>
   );
