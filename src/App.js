@@ -15,10 +15,14 @@ const App = () => {
 
   const choices = ["Rock", "Paper", "Scissors"];
 
-  const selectWinner = () => {
-    console.log(rpsState.humanChoice);
+  let tempSelections = {
+    human: "",
+    comp: ""
+  }
 
-    if (rpsState.humanChoice === rpsState.computerChoice) {
+  const selectWinner = ({ human, comp }) => {
+    // Ties
+    if (human === comp) {
       const tieCount = ++rpsState.tieTally;
 
       setRPSState(prevState => {
@@ -33,10 +37,11 @@ const App = () => {
       return;
     }
 
+    // Human wins
     if (
-      (rpsState.humanChoice === "rock" && rpsState.computerChoice === "scissors") ||
-      (rpsState.humanChoice === "paper" && rpsState.computerChoice === "rock") ||
-      (rpsState.humanChoice === "scissors" && rpsState.computerChoice === "paper")
+      (human === "rock" && comp === "scissors") ||
+      (human === "paper" && comp === "rock") ||
+      (human === "scissors" && comp === "paper")
     ) {
       const humanTally = ++rpsState.humanTally;
 
@@ -47,6 +52,7 @@ const App = () => {
           currentWinner: "You!"
         }
       })
+    // All other possible outcomes = computer wins
     } else {
       const compTally = ++rpsState.computerTally;
 
@@ -62,6 +68,8 @@ const App = () => {
 
   const computerChooses = () => {
     const choice = choices[Math.floor(Math.random() * choices.length)].toLowerCase();
+
+    tempSelections.comp = choice;
 
     setRPSState(prevState => {
       return {
@@ -80,7 +88,7 @@ const App = () => {
 
       if (rpsState.countdown === 0) {
         clearInterval(countdownInterval)
-        selectWinner();
+        selectWinner(tempSelections);
       };
 
       setRPSState(prevState => {
@@ -93,10 +101,14 @@ const App = () => {
   }
 
   const choose = ({ target }) => {
+    const choice = target.innerText.toLowerCase();
+
+    tempSelections.human = choice;
+
     setRPSState(prevState => {
       return {
         ...prevState,
-        humanChoice: target.innerText.toLowerCase()
+        humanChoice: choice
       }
     });
 
@@ -128,6 +140,11 @@ const App = () => {
       tieTally: 0,
       currentWinner: null
     });
+
+    tempSelections = {
+      human: "",
+      comp: ""
+    }
   }
 
   return (
@@ -140,7 +157,12 @@ const App = () => {
           <h2>Make Your Choice</h2>
           <div>
             {
-              choices.map((value, i) => (<button key={value.toLowerCase()} onClick={choose} disabled={rpsState.humanChoice}>{value}</button>))
+              choices.map(value => (<button 
+                key={value.toLowerCase()} 
+                onClick={choose} 
+                disabled={rpsState.humanChoice}>
+                {value}
+              </button>))
             }
           </div>
         </section>
@@ -153,9 +175,21 @@ const App = () => {
                 <h2>Computer Chooses: {rpsState.computerChoice.charAt(0).toUpperCase() + rpsState.computerChoice.slice(1)}</h2>
                 <h2>Round {rpsState.round} Winner: {rpsState.currentWinner}</h2>
                 <button onClick={playAgain}>Play Again</button>
+                <button onClick={reset}>Reset</button>
+                <div className="row">
+                  <div className="col-6">
+                    <h3>Your Wins:</h3>
+                    <h3>Computer Wins:</h3>
+                    <h3>Ties:</h3>
+                  </div>
+                  <div className="col-6">
+                    <h3>{rpsState.humanTally}</h3>
+                    <h3>{rpsState.computerTally}</h3>
+                    <h3>{rpsState.tieTally}</h3>
+                  </div>
+                </div>
               </>
             }
-            <button onClick={reset}>Reset</button>
           </section>
         )}
       </main>
