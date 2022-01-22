@@ -153,7 +153,7 @@ const App = () => {
         <h1>Rock, Paper, Scissors: The Game of Champions</h1>
       </header>
       <main>
-        <section className="text-center">
+        <section className="text-center mb-4">
           <h2>Make Your Choice</h2>
           <div>
             {
@@ -174,9 +174,9 @@ const App = () => {
               rpsState.countdown ? 
               <h2 className="text-center">Computer Choice in {rpsState.countdown}...</h2> :
               <>
-                <div className="text-center">
+                <div className="text-center mb-5">
                   <h2>Computer Chooses: {rpsState.computerChoice.charAt(0).toUpperCase() + rpsState.computerChoice.slice(1)}</h2>
-                  <h2>Round {rpsState.round} Winner: {rpsState.currentWinner}</h2>
+                  <h2 className="mb-3">Round {rpsState.round} Winner: {rpsState.currentWinner}</h2>
                   <button onClick={playAgain}>Play Again</button>
                   <button onClick={reset}>Reset</button>
                 </div>
