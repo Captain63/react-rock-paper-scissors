@@ -149,18 +149,20 @@ const App = () => {
 
   return (
     <div className="App">
-      <header>
+      <header className="text-center">
         <h1>Rock, Paper, Scissors: The Game of Champions</h1>
       </header>
       <main>
-        <section>
+        <section className="text-center">
           <h2>Make Your Choice</h2>
           <div>
             {
-              choices.map(value => (<button 
+              choices.map(value => (
+              <button 
                 key={value.toLowerCase()} 
                 onClick={choose} 
-                disabled={rpsState.humanChoice}>
+                disabled={rpsState.humanChoice}
+                className={rpsState.humanChoice === value.toLowerCase() ? "chosen" : undefined}>
                 {value}
               </button>))
             }
@@ -170,19 +172,22 @@ const App = () => {
           <section>
             {
               rpsState.countdown ? 
-              <h2>Computer Choice in {rpsState.countdown}...</h2> :
+              <h2 className="text-center">Computer Choice in {rpsState.countdown}...</h2> :
               <>
-                <h2>Computer Chooses: {rpsState.computerChoice.charAt(0).toUpperCase() + rpsState.computerChoice.slice(1)}</h2>
-                <h2>Round {rpsState.round} Winner: {rpsState.currentWinner}</h2>
-                <button onClick={playAgain}>Play Again</button>
-                <button onClick={reset}>Reset</button>
-                <div className="row">
-                  <div className="col-6">
+                <div className="text-center">
+                  <h2>Computer Chooses: {rpsState.computerChoice.charAt(0).toUpperCase() + rpsState.computerChoice.slice(1)}</h2>
+                  <h2>Round {rpsState.round} Winner: {rpsState.currentWinner}</h2>
+                  <button onClick={playAgain}>Play Again</button>
+                  <button onClick={reset}>Reset</button>
+                </div>
+                
+                <div className="row d-flex justify-content-center">
+                  <div className="col-8 col-sm-4 tally-keys">
                     <h3>Your Wins:</h3>
                     <h3>Computer Wins:</h3>
                     <h3>Ties:</h3>
                   </div>
-                  <div className="col-6">
+                  <div className="col-4 col-sm-3">
                     <h3>{rpsState.humanTally}</h3>
                     <h3>{rpsState.computerTally}</h3>
                     <h3>{rpsState.tieTally}</h3>
