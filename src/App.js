@@ -149,8 +149,8 @@ const App = () => {
 
   return (
     <div className="App">
-      <header className="text-center">
-        <h1>Rock, Paper, Scissors: The Game of Champions</h1>
+      <header className="text-center pb-2">
+        <h1>Rock, Paper, Scissors:<br />The Game of Champions</h1>
       </header>
       <main>
         <section className="text-center mb-4">
