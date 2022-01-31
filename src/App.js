@@ -71,9 +71,7 @@ const App = () => {
         ...prevState,
         computerChoice: choice
       }
-    })
-
-    countdown();
+    });
   }
 
   const countdown = () => {
@@ -107,6 +105,7 @@ const App = () => {
       }
     });
 
+    countdown();
     computerChooses();
   }
 
@@ -139,7 +138,7 @@ const App = () => {
     tempSelections = {
       human: "",
       comp: ""
-    }
+    };
   }
 
   return (
