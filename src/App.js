@@ -32,13 +32,8 @@ const App = () => {
           currentWinner: "Draw!"
         }
       })
-
-      // Stop checking other conditions
-      return;
-    }
-
     // Human wins
-    if (
+    } else if (
       (human === "rock" && comp === "scissors") ||
       (human === "paper" && comp === "rock") ||
       (human === "scissors" && comp === "paper")
