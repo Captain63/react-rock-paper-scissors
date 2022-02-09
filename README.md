@@ -8,7 +8,7 @@
 - [Screenshots](#screenshots)
 
 ## Project Overview
-Rock paper scissors client-side application built using React, Bootstrap, and JS. This app uses state hooks to track variables around the game, including human and computer selections, countdown, and score.
+Rock paper scissors client-side application built using React, Bootstrap, and JS. This app uses state hooks to track variables around the game, including human and computer selections, countdown, and score. The effect hook is used to persist the state to local storage on updates and retrieve the state from local storage when the component mounts.
 
 Inspired by a [regular JS client-side application](https://github.com/Captain63/rock-paper-scissors-project) created for my full-stack development bootcamp using the prompt, confirm, and alert methods of the Window object.
 
