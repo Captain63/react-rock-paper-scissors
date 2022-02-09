@@ -1,5 +1,5 @@
 import './App.css';
-import { useState } from "react";
+import { useState, useEffect } from "react";
 
 const App = () => {
   const [rpsState, setRPSState] = useState({ 
@@ -12,6 +12,18 @@ const App = () => {
     tieTally: 0,
     currentWinner: null
   });
+
+  // Check if rpsState is stored in local storage when component first mounts
+  useEffect(() => {
+    if (localStorage.getItem("rpsState")) {
+      setRPSState(JSON.parse(localStorage.getItem("rpsState")));
+    }
+  }, [])
+
+  // Persist rpsState to local storage each time rpsState updates
+  useEffect(() => {
+    localStorage.setItem("rpsState", JSON.stringify(rpsState));
+  }, [rpsState])
 
   const choices = ["Rock", "Paper", "Scissors"];
 
