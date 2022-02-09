@@ -15,9 +15,7 @@ const App = () => {
 
   // Check if rpsState is stored in local storage when component first mounts
   useEffect(() => {
-    if (localStorage.getItem("rpsState")) {
-      setRPSState(JSON.parse(localStorage.getItem("rpsState")));
-    }
+    localStorage.getItem("rpsState") && setRPSState(JSON.parse(localStorage.getItem("rpsState")));
   }, [])
 
   // Persist rpsState to local storage each time rpsState updates
